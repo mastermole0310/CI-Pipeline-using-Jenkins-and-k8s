@@ -1,5 +1,6 @@
 pipeline {
-    agent { label 'ubuntu' }
+    agent any
+    tools {nodejs "node"}
     triggers {
         cron('H * * * *')
     }   
