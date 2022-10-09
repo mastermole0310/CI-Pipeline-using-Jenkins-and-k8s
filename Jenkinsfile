@@ -1,5 +1,5 @@
 pipeline {
-    agent any
+    agent { label 'ubuntu' }
     triggers {
         cron('H * * * *')
     }   
@@ -9,9 +9,10 @@ pipeline {
     dockerImage = ''
     }
     stages { 
-        stage('Checkout external proj') {
+        stage('Checkout') {
         steps {
-            checkout scm 
+            git branch: 'main'
+                url: 'https://github.com/mastermole0310/CI-Pipeline-using-Jenkins-and-k8s'
         }
     }
 
