@@ -19,12 +19,12 @@ pipeline {
             script {
                 def dockerHome = tool 'my_docker'
                 env.PATH = "${dockerHome}/bin:${env.PATH}"
+                sh 'systemctl start docker'
             }
         }
     }
                     
         stage('Building our image') { 
-            agent { docker }
             steps { 
                 script { 
                     dockerImage = docker.build registry + ":$BUILD_NUMBER" 
