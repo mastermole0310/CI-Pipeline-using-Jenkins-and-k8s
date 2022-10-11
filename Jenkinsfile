@@ -1,7 +1,8 @@
 pipeline {
-  agent {
-    kubernetes {
-      yaml """
+    agent {
+        kubernetes {
+            label 'kaniko'
+            yaml """
 apiVersion: v1
 kind: Pod
 metadata:
