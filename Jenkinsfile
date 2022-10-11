@@ -11,8 +11,7 @@ pipeline {
     stages { 
         stage('Checkout') {
         steps {
-            git branch: 'main'
-                url: 'https://github.com/mastermole0310/CI-Pipeline-using-Jenkins-and-k8s'
+            checkout scm
         }
     }
 
