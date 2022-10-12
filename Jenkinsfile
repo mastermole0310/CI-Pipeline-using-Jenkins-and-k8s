@@ -1,29 +1,5 @@
 pipeline {
-    agent {
-        kubernetes {
-            label 'kaniko'
-            yaml """
-apiVersion: v1
-kind: Pod
-metadata:
-  labels:
-    jenkins: worker
-spec:
-  containers:
-  - name: kaniko
-    image: gcr.io/kaniko-project/executor:debug
-    command: ["/busybox/cat"]
-    tty: true
-    volumeMounts:
-      - name: dockercred
-        mountPath: /root/.docker/
-  volumes:
-  - name: dockercred
-    secret:
-      secretName: dockercred
-"""
-    }
-  }
+    agent any
   
     triggers {
         cron('H * * * *')
