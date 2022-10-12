@@ -18,8 +18,8 @@ pipeline {
                     
         stage('Building our image') { 
             steps { 
-               container('kaniko') {
-                    sh './build-go-bin.sh'
+                script { 
+                    dockerImage = docker.build registry + ":$BUILD_NUMBER"
                 }
             } 
         }
