@@ -1,5 +1,12 @@
 pipeline {
-    agent any
+  options {
+    ansiColor('xterm')
+  }
+    agent {
+    kubernetes {
+      yamlFile 'builder.yaml'
+    }
+  }
   
     triggers {
         cron('H * * * *')
@@ -16,21 +23,19 @@ pipeline {
         }
     }
                     
-        stage('Building our image') { 
-            steps { 
-                script { 
-                    dockerImage = docker.build registry + ":$BUILD_NUMBER"
-                }
-            } 
+       stage('Kaniko Build & Push Image') {
+      steps {
+        container('kaniko') {
+          script {
+            sh '''
+            /kaniko/executor --dockerfile `pwd`/Dockerfile \
+                             --context `pwd` \
+                             --destination=mastermole/flask:${BUILD_NUMBER}
+            '''
+          }
         }
-        stage('Deploy our image') { 
-            steps { 
-                script { 
-                    docker.withRegistry( '', registryCredential ) { 
-                        dockerImage.push() 
-                    }
-                } 
-            }
-        }
+      }
+    }
+    
     }    
 }
