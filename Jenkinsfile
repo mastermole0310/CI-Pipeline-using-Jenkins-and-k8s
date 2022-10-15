@@ -22,6 +22,15 @@ pipeline {
             }
         }
     }
+    
+    stage('Run docker deamon') { 
+            steps { 
+                script { 
+                    systemctl start docker 
+                }
+            } 
+        }
+        
         stage('Building our image') { 
             steps { 
                 script { 
