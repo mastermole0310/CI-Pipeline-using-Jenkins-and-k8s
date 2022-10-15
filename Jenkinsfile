@@ -25,7 +25,6 @@ pipeline {
     
     stage('Run docker deamon') { 
             steps { 
-                sh "systemctl start docker"
                 sh "groupadd docker"
                 sh "usermod -aG docker jenkins"
             } 
