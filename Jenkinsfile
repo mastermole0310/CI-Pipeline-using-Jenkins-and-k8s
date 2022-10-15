@@ -4,7 +4,7 @@ pipeline {
         cron('H * * * *')
     }   
     environment {
-    registry = "mastermole/httpd_pipeline"
+    registry = "mastermole/flask"
     registryCredential = 'dockerhub'
     dockerImage = ''
     }
