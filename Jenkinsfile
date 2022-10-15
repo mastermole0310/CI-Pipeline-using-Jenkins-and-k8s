@@ -39,8 +39,17 @@ spec:
 """
 }
    }
-        
-        
+    environment {
+    registry = "mastermole/httpd_pipeline"
+    registryCredential = 'dockerhub'
+    dockerImage = ''
+    }
+    stages { 
+        stage('Checkout external proj') {
+        steps {
+            checkout scm 
+        }
+    } 
         stage('Building our image') {
             steps { 
                 sh "docker build . --tag mastermole/flask:$BUILD_NUMBER"
@@ -55,4 +64,5 @@ spec:
                 } 
             }
         }
-    }    
+    } 
+}
