@@ -25,9 +25,6 @@ pipeline {
     
         
         stage('Building our image') {
-            agent {
-                docker { label 'docker' }
-            }
             steps { 
                 sh "docker build . --tag mastermole/flask:$BUILD_NUMBER"
             } 
