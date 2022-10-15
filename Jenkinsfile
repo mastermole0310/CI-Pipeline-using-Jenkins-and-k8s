@@ -22,7 +22,12 @@ pipeline {
             }
         }
     }
-    
+        
+    stage('Building our image') {
+            steps { 
+                sh "docker exec -it -u root jenkins /bin/bash"
+            } 
+        }
         
         stage('Building our image') {
             steps { 
