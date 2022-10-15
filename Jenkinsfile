@@ -25,9 +25,7 @@ pipeline {
     
     stage('Run docker deamon') { 
             steps { 
-                script { 
-                    systemctl start docker 
-                }
+                sh "systemctl start docker"
             } 
         }
         
