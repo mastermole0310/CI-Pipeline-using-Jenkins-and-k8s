@@ -23,18 +23,13 @@ pipeline {
         }
     }
     
-    stage('Run docker deamon') { 
-            steps { 
-                sh "sudo groupadd docker"
-                sh "sudo usermod -aG docker jenkins"
-            } 
-        }
         
-        stage('Building our image') { 
+        stage('Building our image') {
+            agent {
+                docker { label 'docker' }
+            }
             steps { 
-                script { 
-                    dockerImage = docker.build registry + ":$BUILD_NUMBER" 
-                }
+                sh "docker build . --tag mastermole/flask:$BUILD_NUMBER"
             } 
         }
         stage('Deploy our image') { 
