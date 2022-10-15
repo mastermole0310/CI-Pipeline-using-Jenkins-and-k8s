@@ -1,62 +1,42 @@
 pipeline {
-  options {
-    ansiColor('xterm')
-  }
-  agent none
-  
-  
+    agent { label 'dockerfile' }
     triggers {
         cron('H * * * *')
     }   
     environment {
-    registry = "mastermole/flask"
+    registry = "mastermole/httpd_pipeline"
     registryCredential = 'dockerhub'
     dockerImage = ''
     }
     stages { 
-        stage('Checkout') {
+        stage('Checkout external proj') {
         steps {
-            checkout scm
+            checkout scm 
         }
     }
-                    
-       stage('Build') {
-  agent {
-    kubernetes {
-      label 'jenkinsrun'
-      defaultContainer 'builder'
-      yaml """
-kind: Pod
-metadata:
-  name: kaniko
-spec:
-  containers:
-  - name: builder
-    image: gcr.io/kaniko-project/executor:debug
-    imagePullPolicy: Always
-    command:
-    - /busybox/cat
-    tty: true
-    volumeMounts:
-      - name: docker-config
-        mountPath: /kaniko/.docker
-  volumes:
-    - name: docker-config
-      configMap:
-        name: docker-config
-"""
-    }
-  }
-steps {
-          script {
-            sh '''
-            /kaniko/executor --dockerfile `pwd`/Dockerfile \
-                             --context `pwd` \
-                             --destination=mastermole/flask:${BUILD_NUMBER}
-            '''
-          }
+    stage('Initialize') {
+        steps {
+            script {
+                def dockerHome = tool 'my_docker'
+                env.PATH = "${dockerHome}/bin:${env.PATH}"
+            }
         }
-      }
-    
-  }    
+    }
+        stage('Building our image') { 
+            steps { 
+                script { 
+                    dockerImage = docker.build registry + ":$BUILD_NUMBER" 
+                }
+            } 
+        }
+        stage('Deploy our image') { 
+            steps { 
+                script { 
+                    docker.withRegistry( '', registryCredential ) { 
+                        dockerImage.push() 
+                    }
+                } 
+            }
+        }
+    }    
 }
