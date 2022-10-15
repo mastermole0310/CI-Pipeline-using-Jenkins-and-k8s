@@ -2,11 +2,11 @@ pipeline {
   options {
     ansiColor('xterm')
   }
-    agent {
+    agent any
       kubernetes {
         yamlFile 'builder.yaml'
     }
-  }
+  
   
     triggers {
         cron('H * * * *')
