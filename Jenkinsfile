@@ -18,7 +18,7 @@ pipeline {
         steps {
             script {
                 def dockerHome = tool 'my_docker'
-                env.PATH = /var/jenkins_home
+                env.PATH = "${dockerHome}/bin:${env.PATH}"
             }
         }
     }
