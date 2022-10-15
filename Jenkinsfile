@@ -3,8 +3,8 @@ pipeline {
     ansiColor('xterm')
   }
     agent {
-    kubernetes {
-      yamlFile 'builder.yaml'
+      kubernetes {
+        yamlFile 'builder.yaml'
     }
   }
   
