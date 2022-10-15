@@ -2,8 +2,7 @@ pipeline {
   options {
     ansiColor('xterm')
   }
-    agent any
-      kubernetes {
+  agent any {
         yamlFile 'builder.yaml'
     }
   
@@ -37,5 +36,5 @@ pipeline {
       }
     }
     
-    }    
+  }    
 }
