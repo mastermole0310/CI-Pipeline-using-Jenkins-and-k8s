@@ -51,8 +51,10 @@ spec:
     
         stage('Building our image') {
             steps { 
+              container('docker') {
                 sh "docker build . --tag mastermole/flask:$BUILD_NUMBER"
             } 
+        }
         }
         stage('Deploy our image') { 
             steps { 
