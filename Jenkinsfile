@@ -1,7 +1,7 @@
 pipeline {
   agent any
   environment {
-    registry = "mastermole/httpd_pipeline"
+    registry = "mastermole/flask"
     registryCredential = 'dockerhub'
     dockerImage = ''
     }
