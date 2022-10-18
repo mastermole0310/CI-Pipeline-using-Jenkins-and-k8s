@@ -19,8 +19,8 @@ spec:
     - cat
     tty: true
     volumeMounts:
-      - mountPath: "/root/.m2"
-        name: m2
+      - mountPath: /var/run/docker.sock
+        name: default
   - name: docker
     image: docker:latest
     command:
@@ -33,9 +33,9 @@ spec:
     - name: docker-sock
       hostPath:
         path: /var/run/docker.sock
-    - name: m2
+    - name: default
       persistentVolumeClaim:
-        claimName: m2
+        claimName: default
 """
 }
    }
