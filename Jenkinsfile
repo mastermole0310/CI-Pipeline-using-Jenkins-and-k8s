@@ -8,6 +8,7 @@ pipeline {
     }
     
   stage('Create pod') {
+      steps {
   agent {
     kubernetes {
       label 'mastermole/flask'
@@ -40,7 +41,8 @@ spec:
 """
 }
    }
-       }
+       } 
+          }
     environment {
     registry = "mastermole/httpd_pipeline"
     registryCredential = 'dockerhub'
