@@ -27,15 +27,6 @@ labels:
 spec:
   # Use service account that can deploy to all namespaces
   serviceAccountName: default
-  containers:
-  - name: maven
-    image: maven:latest
-    command:
-    - cat
-    tty: true
-    volumeMounts:
-      - mountPath: /var/run/docker.sock
-        name: docker-sock
   - name: docker
     image: docker:latest
     command:
@@ -59,7 +50,7 @@ spec:
     
         stage('Building our image') {
             steps { 
-              container('maven') {
+              container('docker') {
                 sh "docker build . --tag mastermole/flask:$BUILD_NUMBER"
             } 
         }
