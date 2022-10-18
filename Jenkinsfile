@@ -60,6 +60,10 @@ spec:
     
     stage('Build') {
       steps {
+        agent {
+    kubernetes {
+      cloud 'kubernetes'
+      label 'mastermole/flask'
         container('maven') {
           sh """
                         mvn package -DskipTests
@@ -67,7 +71,8 @@ spec:
         }
       }
     } 
-    
+      }
+    }
     stage('Test') {
       steps {
         container('maven') {
