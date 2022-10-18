@@ -1,5 +1,10 @@
 pipeline {
   agent none
+  environment {
+    registry = "mastermole/httpd_pipeline"
+    registryCredential = 'dockerhub'
+    dockerImage = ''
+    }
   stages { 
         stage('Checkout external proj') {
         steps {
@@ -43,11 +48,6 @@ spec:
    }
        } 
           }
-    environment {
-    registry = "mastermole/httpd_pipeline"
-    registryCredential = 'dockerhub'
-    dockerImage = ''
-    }
     
         stage('Building our image') {
             steps { 
