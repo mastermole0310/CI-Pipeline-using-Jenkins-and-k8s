@@ -75,6 +75,10 @@ spec:
     }
     stage('Test') {
       steps {
+        agent {
+    kubernetes {
+      cloud 'kubernetes'
+      label 'mastermole/flask'
         container('maven') {
           sh """
              mvn test
@@ -82,13 +86,20 @@ spec:
         }
       }
     }
-    
+      }
+    }
         stage('Building our image') {
             steps { 
+              agent {
+    kubernetes {
+      cloud 'kubernetes'
+      label 'mastermole/flask'
               container('docker') {
                 sh "docker build . --tag mastermole/flask:$BUILD_NUMBER"
             } 
         }
+        }
+            }
         }
         stage('Deploy our image') { 
             steps { 
