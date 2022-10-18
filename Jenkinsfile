@@ -66,7 +66,7 @@ spec:
                                                 """
         }
       }
-    
+    } 
         stage('Building our image') {
             steps { 
               container('docker') {
