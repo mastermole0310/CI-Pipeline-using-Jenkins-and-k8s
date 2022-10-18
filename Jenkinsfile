@@ -1,5 +1,5 @@
 pipeline {
-  agent none
+  agent any
   environment {
     registry = "mastermole/httpd_pipeline"
     registryCredential = 'dockerhub'
