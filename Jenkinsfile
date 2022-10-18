@@ -16,6 +16,7 @@ pipeline {
       steps {
   agent {
     kubernetes {
+      cloud 'kubernetes'
       label 'mastermole/flask'
       defaultContainer 'jnlp'
       yaml """
