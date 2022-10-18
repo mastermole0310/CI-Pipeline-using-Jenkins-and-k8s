@@ -67,6 +67,17 @@ spec:
         }
       }
     } 
+    
+    stage('Test') {
+      steps {
+        container('maven') {
+          sh """
+             mvn test
+          """
+        }
+      }
+    }
+    
         stage('Building our image') {
             steps { 
               container('docker') {
