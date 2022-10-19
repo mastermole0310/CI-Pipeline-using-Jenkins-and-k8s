@@ -15,7 +15,7 @@ pipeline {
   stage('Create pod') {
       steps {
   agent {
-    kubernetes {
+      kubernetes {
       cloud 'kubernetes'
       label 'mastermole/flask'
       defaultContainer 'jnlp'
@@ -61,7 +61,7 @@ spec:
     stage('Build') {
       steps {
         agent {
-    kubernetes {
+      kubernetes {
       cloud 'kubernetes'
       label 'mastermole/flask'
         container('maven') {
@@ -76,7 +76,7 @@ spec:
     stage('Test') {
       steps {
         agent {
-    kubernetes {
+      kubernetes {
       cloud 'kubernetes'
       label 'mastermole/flask'
         container('maven') {
@@ -91,7 +91,7 @@ spec:
         stage('Building our image') {
             steps { 
               agent {
-    kubernetes {
+      kubernetes {
       cloud 'kubernetes'
       label 'mastermole/flask'
               container('docker') {
@@ -103,9 +103,15 @@ spec:
         }
         stage('Deploy our image') { 
             steps { 
+              agent {
+      docker {
+      cloud 'kubernetes'
+      label 'mastermole/flask'
                 script { 
                     docker.withRegistry( '', registryCredential ) { 
                         dockerImage.push() 
+                        }
+                      }
                     }
                 } 
             }
