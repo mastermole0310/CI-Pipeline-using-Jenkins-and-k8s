@@ -37,6 +37,7 @@ spec:
     - name: default
       persistentVolumeClaim:
         claimName: default
+        }
   environment {
     registry = "mastermole/flask"
     registryCredential = 'dockerhub'
