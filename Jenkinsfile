@@ -104,7 +104,7 @@ spec:
         stage('Deploy our image') { 
             steps { 
              agent { label 'dockerfile' }
-              cloud 'kubernetes'
+              container('docker')
                 script { 
                     docker.withRegistry( '', registryCredential ) { 
                         dockerImage.push() 
