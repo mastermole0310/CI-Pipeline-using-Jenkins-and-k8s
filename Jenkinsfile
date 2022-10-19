@@ -1,19 +1,4 @@
 pipeline {
-  agent any
-  environment {
-    registry = "mastermole/flask"
-    registryCredential = 'dockerhub'
-    dockerImage = ''
-    }
-  stages { 
-        stage('Checkout external proj') {
-        steps {
-            checkout scm 
-        }
-    }
-    
-  stage('Create pod') {
-      steps {
   agent {
       kubernetes {
       cloud 'kubernetes'
@@ -52,11 +37,17 @@ spec:
     - name: default
       persistentVolumeClaim:
         claimName: default
-"""
-}
-   }
-       } 
-          }
+  environment {
+    registry = "mastermole/flask"
+    registryCredential = 'dockerhub'
+    dockerImage = ''
+    }
+  stages { 
+        stage('Checkout external proj') {
+        steps {
+            checkout scm 
+        }
+    }
     
     stage('Build') {
       steps {
