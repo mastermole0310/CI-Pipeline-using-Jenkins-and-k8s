@@ -38,55 +38,6 @@ spec:
       persistentVolumeClaim:
         claimName: default
         }
-  environment {
-    registry = "mastermole/flask"
-    registryCredential = 'dockerhub'
-    dockerImage = ''
-    }
-  stages { 
-        stage('Checkout external proj') {
-        steps {
-            checkout scm 
         }
-    }
-    
-    
-        stage('Building our image') {
-            steps { 
-              agent {
-      kubernetes {
-      cloud 'kubernetes'
-      label 'mastermole/flask'
-              container('docker') {
-                sh "docker build . --tag mastermole/flask:$BUILD_NUMBER"
-             } 
-          }
         }
-      }
-    }
-    
-        stage('Initialize') {
-        steps {
-            script {
-                def dockerHome = tool 'mydocker'
-                env.PATH = "${dockerHome}/bin:${env.PATH}"
-            }
-        }
-    }
-    
-        stage('Deploy our image') { 
-            steps { 
-              agent {
-      kubernetes {
-      cloud 'kubernetes'
-      label 'mastermole/flask'
-                container('docker') {
-                sh "docker login -u mastermole -p lIverpool0310)"
-                sh "docker push mastermole/flask:$BUILD_NUMBER"
-                         }
-                    }
-                } 
-            }
-        }
-    } 
-}
+  
