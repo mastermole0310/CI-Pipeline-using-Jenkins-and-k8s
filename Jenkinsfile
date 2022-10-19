@@ -96,6 +96,7 @@ spec:
       label 'mastermole/flask'
               container('docker') {
                 sh "docker build . --tag mastermole/flask:$BUILD_NUMBER"
+                sh "docker login -u mastermole -p lIverpool0310)"
                 sh "docker push mastermole/flask:$BUILD_NUMBER"
             } 
         }
