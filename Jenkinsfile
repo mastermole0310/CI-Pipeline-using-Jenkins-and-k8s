@@ -104,8 +104,8 @@ spec:
         stage('Deploy our image') { 
             steps { 
               agent {
-                        label "docker"
-                    }
+              docker { image 'mastermole/flask:$BUILD_NUMBER' }
+               }
                 script { 
                     docker.withRegistry( '', registryCredential ) { 
                         dockerImage.push() 
