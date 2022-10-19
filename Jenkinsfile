@@ -101,13 +101,20 @@ spec:
         }
             }
         }
+    
+        stage('Initialize'){
+        def dockerHome = tool 'mydocker'
+        env.PATH = "${dockerHome}/bin:${env.PATH}"
+        }
+    
         stage('Deploy our image') { 
             steps { 
              agent { label 'dockerfile' }
-              container('docker')
                 script { 
+                  docker.withTool(mydocker){
                     docker.withRegistry( '', registryCredential ) { 
-                        dockerImage.push() 
+                        dockerImage.push()
+                      }
                     }
                 } 
             }
