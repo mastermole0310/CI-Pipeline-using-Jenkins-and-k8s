@@ -104,14 +104,11 @@ spec:
         stage('Deploy our image') { 
             steps { 
               agent {
-      docker {
-      cloud 'kubernetes'
-      label 'mastermole/flask'
+                        label "docker"
+                    }
                 script { 
                     docker.withRegistry( '', registryCredential ) { 
                         dockerImage.push() 
-                        }
-                      }
                     }
                 } 
             }
