@@ -37,6 +37,7 @@ spec:
     - name: default
       persistentVolumeClaim:
         claimName: default
+"""
         }
        
        stages { 
