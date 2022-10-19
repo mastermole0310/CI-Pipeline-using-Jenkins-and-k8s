@@ -113,11 +113,15 @@ spec:
     
         stage('Deploy our image') { 
             steps { 
-             agent { label 'dockerfile' }
+              agent {
+      kubernetes {
+      cloud 'kubernetes'
+      label 'mastermole/flask'
                 container('docker') {
                 sh "docker login -u mastermole -p lIverpool0310)"
                 sh "docker push mastermole/flask:$BUILD_NUMBER"
-                   
+                         }
+                    }
                 } 
             }
         }
