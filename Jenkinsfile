@@ -49,36 +49,7 @@ spec:
         }
     }
     
-    stage('Build') {
-      steps {
-        agent {
-      kubernetes {
-      cloud 'kubernetes'
-      label 'mastermole/flask'
-        container('maven') {
-          sh """
-                        mvn package -DskipTests
-                                                """
-        }
-      }
-    } 
-      }
-    }
-    stage('Test') {
-      steps {
-        agent {
-      kubernetes {
-      cloud 'kubernetes'
-      label 'mastermole/flask'
-        container('maven') {
-          sh """
-             mvn test
-          """
-        }
-      }
-    }
-      }
-    }
+    
         stage('Building our image') {
             steps { 
               agent {
@@ -87,11 +58,11 @@ spec:
       label 'mastermole/flask'
               container('docker') {
                 sh "docker build . --tag mastermole/flask:$BUILD_NUMBER"
-            } 
+             } 
+          }
         }
-        }
-            }
-        }
+      }
+    }
     
         stage('Initialize') {
         steps {
