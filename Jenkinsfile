@@ -28,8 +28,8 @@ spec:
     - cat
     tty: true
     volumeMounts:
-    - mountPath: /var/run/docker.sock
-      name: docker-sock
+    - mountPath: "/root/.m2"
+      name: m2
   volumes:
     - name: docker-sock
       hostPath:
