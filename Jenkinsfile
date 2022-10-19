@@ -39,6 +39,7 @@ spec:
         claimName: default
 """
         }
+  }
        
        stages { 
         stage('Checkout external proj') {
@@ -48,5 +49,4 @@ spec:
           }
        }
     }
-  }
 
