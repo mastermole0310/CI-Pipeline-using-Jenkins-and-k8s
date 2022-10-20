@@ -12,7 +12,7 @@ pipeline {
       kubernetes {
       cloud 'kubernetes'
       label 'mastermole/flask'
-      defaultContainer 'jenkins-jnlp'
+      defaultContainer 'jnlp'
       yaml """
 apiVersion: v1
 kind: Pod
