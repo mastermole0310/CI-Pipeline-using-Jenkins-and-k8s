@@ -12,7 +12,7 @@ spec:
     emptyDir: {}
   containers:
   - name: kaniko
-    image: gcr.io/kaniko-project/executor:v1.7.0-debug
+    image: gcr.io/kaniko-project/executor:latest
     imagePullPolicy: Always
     command:
     - /busybox/cat
