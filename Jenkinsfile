@@ -1,5 +1,14 @@
 pipeline {
-  agent {
+  agent any
+  environment {
+    registry = "mastermole/httpd_pipeline"
+    registryCredential = 'dockerhub'
+    dockerImage = ''
+    }
+  stages { 
+    stage('Create pod') {
+      steps {
+      agent {
       kubernetes {
       cloud 'kubernetes'
       label 'mastermole/flask'
@@ -14,14 +23,6 @@ spec:
   # Use service account that can deploy to all namespaces
   serviceAccountName: default
   containers:
-  - name: maven
-    image: maven:latest
-    command:
-    - cat
-    tty: true
-    volumeMounts:
-      - mountPath: /var/run/docker.sock
-        name: default
   - name: docker
     image: docker:latest
     command:
@@ -38,17 +39,10 @@ spec:
       persistentVolumeClaim:
         claimName: default
 """
-   
-  
-        stages { 
-        stage('Checkout external proj') {
-        steps {
-        container('docker') {
-            checkout scm 
-            }
           }
-        }  
+        }
       }
     }
   }
 }
+  
