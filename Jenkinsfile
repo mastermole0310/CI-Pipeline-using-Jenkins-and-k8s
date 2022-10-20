@@ -1,48 +1,24 @@
 pipeline {
-  agent none
-  environment {
-    registry = "mastermole/httpd_pipeline"
-    registryCredential = 'dockerhub'
-    dockerImage = ''
-    }
-  stages { 
-    stage('Create pod') {
-      steps {
-      agent {
-      kubernetes {
-      cloud 'kubernetes'
-      label 'mastermole/flask'
-      defaultContainer 'jnlp'
+  agent {
+    kubernetes {
+      //cloud 'kubernetes'
       yaml """
-apiVersion: v1
 kind: Pod
 metadata:
-labels:
-  component: ci
+  name: kaniko
 spec:
-  # Use service account that can deploy to all namespaces
-  serviceAccountName: default
   containers:
-  - name: docker
-    image: docker:latest
-    command:
-    - cat
-    tty: true
-    volumeMounts:
-    - mountPath: "/root/.m2"
-      name: m2
-  volumes:
-    - name: docker-sock
-      hostPath:
-        path: /var/run/docker.sock
-    - name: default
-      persistentVolumeClaim:
-        claimName: default
+  - name: jhooq-pod-with-pvc
+    image: rahulwagh17/kubernetes:jhooq-k8s-springboot
+    imagePullPolicy: Always
 """
-          }
-        }
-      }
     }
   }
+  stages {
+      stage('build') {
+          steps {
+              echo "Hello World!"
+          }
+      }
+  }
 }
-  
