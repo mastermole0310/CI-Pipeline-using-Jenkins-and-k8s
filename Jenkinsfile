@@ -14,7 +14,7 @@ spec:
   - name: kaniko
     image: gcr.io/kaniko-project/executor:latest
     args:
-    - "--context=git://https://github.com/mastermole0310/CI-Pipeline-using-Jenkins-and-k8s.git"
+    - "--context=git://github.com/mastermole0310/CI-Pipeline-using-Jenkins-and-k8s"
     - "--destination=mastermole/flask:1.0"
     imagePullPolicy: Always
     command:
