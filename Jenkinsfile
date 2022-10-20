@@ -38,6 +38,16 @@ spec:
       persistentVolumeClaim:
         claimName: default
 """
-        }
+   
+  
+        stages { 
+        stage('Checkout external proj') {
+        steps {
+        container('docker') {
+            checkout scm 
+            }
+          }
+        }  
+      }
     }
-}
+  }
