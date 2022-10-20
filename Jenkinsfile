@@ -48,11 +48,11 @@ spec:
        stages { 
         stage('Checkout external proj') {
         steps {
-        agent { label 'dockerfile' }
+        container('docker') {
             checkout scm 
             }
           }
-         
+        }  
     stage('Building our image') { 
             steps { 
                 script { 
