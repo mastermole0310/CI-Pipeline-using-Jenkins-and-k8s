@@ -7,18 +7,19 @@ kind: Pod
 metadata:
   name: kaniko
 spec:
+  volumes:
+  - name: shared-data
+    emptyDir: {}
   containers:
   - name: kaniko
-    image: gcr.io/kaniko-project/executor:debug
-    restartPolicy: Never
+    image: gcr.io/kaniko-project/executor:v1.7.0-debug
+    imagePullPolicy: Always
     command:
     - /busybox/cat
     tty: true
     volumeMounts:
-      - name: jenkins-docker-cfg
-        mountPath: /kaniko/.docker
-  volumes:
-  - name: jenkins-docker-cfg
+    - name: shared-data
+      mountPath: /shared-data
 """
     }
   }
