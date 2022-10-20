@@ -40,10 +40,15 @@ spec:
 """
         }
   }
-       
+    environment {
+    registry = "mastermole/httpd_pipeline"
+    registryCredential = 'dockerhub'
+    dockerImage = ''
+    }   
        stages { 
         stage('Checkout external proj') {
         steps {
+        agent { label 'dockerfile' }
             checkout scm 
             }
           }
