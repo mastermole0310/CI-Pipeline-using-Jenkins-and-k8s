@@ -39,7 +39,7 @@ spec:
         claimName: default
 """
         }
-  
+    }
     environment {
     registry = "mastermole/httpd_pipeline"
     registryCredential = 'dockerhub'
@@ -52,7 +52,7 @@ spec:
             checkout scm 
             }
           }
-       }
+         
     stage('Building our image') { 
             steps { 
                 script { 
@@ -70,4 +70,3 @@ spec:
             }
         }
     }
-}
