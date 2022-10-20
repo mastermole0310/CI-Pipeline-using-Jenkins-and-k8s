@@ -39,7 +39,7 @@ spec:
         claimName: default
 """
         }
-  }
+  
     environment {
     registry = "mastermole/httpd_pipeline"
     registryCredential = 'dockerhub'
@@ -70,4 +70,4 @@ spec:
             }
         }
     }
-
+}
