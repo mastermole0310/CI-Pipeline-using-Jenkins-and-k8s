@@ -28,4 +28,11 @@ spec:
 """
     }
   }
+  stages { 
+        stage('Checkout external proj') {
+        steps {
+            checkout scm 
+           }
+       }
+   }
 }
