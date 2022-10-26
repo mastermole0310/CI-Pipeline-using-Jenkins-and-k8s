@@ -15,16 +15,14 @@ spec:
     - "--context=git://github.com/mastermole0310/CI-Pipeline-using-Jenkins-and-k8s"
     - "--destination=mastermole/flask:1.0"
     volumeMounts:
-    - name: kaniko-secret
-      mountPath: /kaniko/.docker
-  restartPolicy: Never
-  volumes:
-  - name: kaniko-secret
-    secret:
-      secretName: dockercred
-      items:
-        - key: .dockerconfigjson
-          path: config.json
+        - name: workspace
+          mountPath: /workspace
+      volumes:
+      - name: workspace
+        persistentVolumeClaim:
+          claimName: kaniko-workspace
+      restartPolicy: Never
+  backoffLimit: 3
 """
     }
   }
