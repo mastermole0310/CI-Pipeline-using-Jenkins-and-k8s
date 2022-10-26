@@ -15,6 +15,9 @@ spec:
     - "--context=git://github.com/mastermole0310/CI-Pipeline-using-Jenkins-and-k8s"
     - "--destination=mastermole/flask:1.0"
     imagePullPolicy: Always
+    volumeMounts:
+    - name: kaniko-secret
+      mountPath: /kaniko/.docker
 """
     }
   }
