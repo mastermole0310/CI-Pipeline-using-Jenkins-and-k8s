@@ -22,7 +22,6 @@ spec:
         persistentVolumeClaim:
           claimName: kaniko-workspace
       restartPolicy: Never
-  backoffLimit: 3
 """
     }
   }
