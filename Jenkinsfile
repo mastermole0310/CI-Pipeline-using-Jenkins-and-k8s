@@ -3,31 +3,29 @@ pipeline {
     kubernetes {
       //cloud 'kubernetes'
       yaml """
+apiVersion: v1
 kind: Pod
 metadata:
   name: kaniko
 spec:
-  volumes:
-  - name: shared-data
-    emptyDir: {}
   containers:
   - name: kaniko
     image: gcr.io/kaniko-project/executor:latest
-    imagePullPolicy: Always
-    command:
-    - /busybox/cat
-    tty: true
+    args:
+    - "--context=git://github.com/mastermole0310/CI-Pipeline-using-Jenkins-and-k8s"
+    - "--destination=mastermole/flask:1.0"
     volumeMounts:
-    - name: shared-data
-      mountPath: /shared-data
+    - name: kaniko-secret
+      mountPath: /kaniko/.docker
+  restartPolicy: Never
+  volumes:
+  - name: kaniko-secret
+    secret:
+      secretName: dockercred
+      items:
+        - key: .dockerconfigjson
+          path: config.json
 """
     }
   }
-  stages {
-        stage('Checkout') {
-            steps {
-                git 'https://github.com/mastermole0310/CI-Pipeline-using-Jenkins-and-k8s.git'
-            }
-         }
-     }
 }
